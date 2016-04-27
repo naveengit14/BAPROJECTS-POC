@@ -1,0 +1,54 @@
+<settings>
+  <mirrors>
+    <mirror>
+      <!--This sends everything else to /public -->
+      <id>nexus</id>
+      <mirrorOf>*</mirrorOf>
+      <url>http://cap-nexus.baplc.com/nexus/content/groups/public</url>
+    </mirror>
+  </mirrors>
+  <profiles>
+    <profile>
+      <id>nexus</id>
+      <!--Enable snapshots for the built in central repo to direct -->
+      <!--all requests to nexus via the mirror -->
+        <properties>
+           <system.distributionManagement.release.repository.url>http://cap-nexus.baplc.com/nexus/content/repositories/releases/</system.distributionManagement.release.repository.url>
+           <system.distributionManagement.snapshots.repository.url>http://cap-nexus.baplc.com/nexus/content/repositories/snapshots/</system.distributionManagement.snapshots.repository.url>
+           <system.distributionManagement.site.base.url>scp://cap-jenkins.baplc.com/site</system.distributionManagement.site.base.url>
+           <system.issueManagement.url>http://jira-dev03.baplc.com</system.issueManagement.url>
+           <system.ciManagement.url>http://cap-jenkins.baplc.com/</system.ciManagement.url>
+         </properties>
+      <repositories>
+        <repository>
+          <id>central</id>
+          <url>http://central</url>
+          <releases><enabled>true</enabled></releases>
+          <snapshots><enabled>true</enabled></snapshots>
+        </repository>
+      </repositories>
+     <pluginRepositories>
+        <pluginRepository>
+          <id>central</id>
+          <url>http://central</url>
+          <releases><enabled>true</enabled></releases>
+          <snapshots><enabled>true</enabled></snapshots>
+        </pluginRepository>
+      </pluginRepositories>
+    </profile>
+  </profiles>
+  <activeProfiles>
+    <!--make the profile active all the time -->
+    <activeProfile>nexus</activeProfile>
+  </activeProfiles>
+<proxies>
+ <proxy>
+    <id>baproxy-dmz</id>
+    <active>true</active>
+    <protocol>http</protocol>
+    <host>baproxy-dmz.baplc.com</host>
+    <port>8080</port>
+    <nonProxyHosts>*.baplc.com|*.uk.ba.com|localhost|127.0.0.|*.stubo.sponte.uk|.baplc.com</nonProxyHosts>
+  </proxy>
+</proxies>
+</settings>
